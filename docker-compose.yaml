@@ -1,0 +1,37 @@
+version: "3.2"
+services:
+  postgres:
+    restart: always
+    image: postgres
+    networks: 
+      - app
+    environment:
+      POSTGRES_PASSWORD: ${JELLYFISH_DB_PASSWORD}
+    volumes:
+      - ./docker-data/pgdata:/var/lib/postgresql/data
+  nginx:
+    restart: always
+    image: fwchen/jellyfish-web:latest
+    ports:
+      - "9090:80"
+    networks: 
+      - app
+    links:
+      - backend:backend
+  backend:
+    restart: always
+    image: fwchen/jellyfish-backend:latest
+    networks: 
+      - app
+    environment:
+      JFISH_JWT_KEY: ${JELLYFISH_DB_PASSWORD}
+      JFISH_DBNAME: jellyfish
+      JFISH_DBHOST: postgres
+      JFISH_DBUSER: postgres
+      JFISH_DBPASSWORD: ${JELLYFISH_DB_PASSWORD}
+    volumes:
+      - ./upload:/go/src/github.com/fwchen/jellyfish
+    depends_on:
+      - postgres
+networks:
+  app:
