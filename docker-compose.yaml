@@ -24,7 +24,7 @@ services:
     networks: 
       - app
     environment:
-      JFISH_JWT_KEY: ${JELLYFISH_DB_PASSWORD}
+      JFISH_JWT_KEY: ${JELLYFISH_JWT_KEY}
       JFISH_DBNAME: jellyfish
       JFISH_DBHOST: postgres
       JFISH_DBUSER: postgres
