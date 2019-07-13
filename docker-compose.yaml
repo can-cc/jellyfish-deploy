@@ -39,7 +39,7 @@ services:
       JFISH_DBPASSWORD: ${JELLYFISH_DB_PASSWORD}
     volumes:
       - ./upload:/go/src/github.com/fwchen/jellyfish
-    migration:
+    depends_on:
       - migration
 networks:
   app:
