@@ -7,6 +7,7 @@ services:
       - app
     environment:
       POSTGRES_PASSWORD: ${JELLYFISH_DB_PASSWORD}
+      POSTGRES_DB: jellyfish
     volumes:
       - ./pgdata:/var/lib/postgresql/data
   migration:
