@@ -40,7 +40,7 @@ services:
       JFISH_DBUSER: postgres
       JFISH_DBPASSWORD: ${JELLYFISH_DB_PASSWORD}
     volumes:
-      - ./upload:/go/src/github.com/fwchen/jellyfish
+      - ./upload:/app/upload
     depends_on:
       - migration
 networks:
