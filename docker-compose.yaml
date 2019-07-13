@@ -14,8 +14,8 @@ services:
     image: boxfuse/flyway
     command: -url=jdbc:postgresql://postgres:5432/jellyfish -user=postgres -password=${JELLYFISH_DB_PASSWORD}
     volumes:
-      - ./sql:/flyway/sql 
-      - ./conf:/flyway/conf
+      - ./jellyfish/sql:/flyway/sql 
+      - ./jellyfish/conf:/flyway/conf
     depends_on:
       - postgres
   nginx:
