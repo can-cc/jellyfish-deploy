@@ -12,10 +12,9 @@ services:
       - ./pgdata:/var/lib/postgresql/data
   migration:
     image: boxfuse/flyway
-    command: -url=jdbc:postgresql://postgres:5432/jellyfish -user=postgres -password=${JELLYFISH_DB_PASSWORD}
+    command: -url=jdbc:postgresql://postgres:5432/jellyfish -user=postgres -password=${JELLYFISH_DB_PASSWORD} migrate
     volumes:
       - ./jellyfish/sql:/flyway/sql 
-      - ./jellyfish/conf:/flyway/conf
     depends_on:
       - postgres
   nginx:
