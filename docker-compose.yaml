@@ -8,7 +8,15 @@ services:
     environment:
       POSTGRES_PASSWORD: ${JELLYFISH_DB_PASSWORD}
     volumes:
-      - ./docker-data/pgdata:/var/lib/postgresql/data
+      - ./pgdata:/var/lib/postgresql/data
+  migration:
+    image: boxfuse/flyway
+    command: -url=jdbc:postgresql://postgres:5432/jellyfish -user=postgres -password=${JELLYFISH_DB_PASSWORD}
+    volumes:
+      - ./sql:/flyway/sql 
+      - ./conf:/flyway/conf
+    depends_on:
+      - postgres
   nginx:
     restart: always
     image: fwchen/jellyfish-web:latest
@@ -31,7 +39,7 @@ services:
       JFISH_DBPASSWORD: ${JELLYFISH_DB_PASSWORD}
     volumes:
       - ./upload:/go/src/github.com/fwchen/jellyfish
-    depends_on:
+    migration:
       - postgres
 networks:
   app:
