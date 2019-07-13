@@ -40,6 +40,6 @@ services:
     volumes:
       - ./upload:/go/src/github.com/fwchen/jellyfish
     migration:
-      - postgres
+      - migration
 networks:
   app:
